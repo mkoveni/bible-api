@@ -47,7 +47,7 @@ export default class VerseService {
                     $and: [{ book, chapter, translation, number }]
                 })
                 .exec()
-                .then(v => this.transformVerse(v));
+                .then(v => resolve(this.transformVerse(v)));
         });
     }
 
