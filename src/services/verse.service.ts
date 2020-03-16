@@ -10,6 +10,8 @@ export default class VerseService {
     ) {}
 
     getVerses(book: string, chapter: string) {
+        book = book.toLowerCase();
+
         return new Promise((resolve, reject) => {
             this.verseModel
                 .find({
@@ -18,11 +20,15 @@ export default class VerseService {
                 .exec()
                 .then(res => {
                     resolve(res.map(v => this.transformVerse(v)));
-                });
+                })
+                .catch(e => resolve(null));
         });
     }
 
     getTranslationVerses(translation: string, book: string, chapter: string) {
+        translation = translation.toLowerCase();
+        book = book.toLowerCase();
+
         return new Promise((resolve, reject) => {
             this.verseModel
                 .find({
@@ -31,7 +37,8 @@ export default class VerseService {
                 .exec()
                 .then(res => {
                     resolve(res.map(v => this.transformVerse(v)));
-                });
+                })
+                .catch(e => resolve(null));
         });
     }
 
@@ -42,16 +49,22 @@ export default class VerseService {
         number: string
     ) {
         return new Promise((resolve, reject) => {
+            translation = translation.toLowerCase();
+            book = book.toLowerCase();
+
             this.verseModel
                 .findOne({
                     $and: [{ book, chapter, translation, number }]
                 })
                 .exec()
-                .then(v => resolve(this.transformVerse(v)));
+                .then(v => resolve(this.transformVerse(v)))
+                .catch(e => resolve(null));
         });
     }
 
     getVerseForAll(book: string, chapter: string, number: string) {
+        book = book.toLowerCase();
+
         return new Promise((resolve, reject) => {
             this.verseModel
                 .find({
@@ -60,7 +73,8 @@ export default class VerseService {
                 .exec()
                 .then(res => {
                     resolve(res.map(v => this.transformVerse(v)));
-                });
+                })
+                .catch(e => resolve(null));
         });
     }
 

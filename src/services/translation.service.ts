@@ -24,7 +24,8 @@ export default class TranslationService {
                             return trans;
                         })
                     );
-                });
+                })
+                .catch(e => resolve(null));
         });
     }
 }
