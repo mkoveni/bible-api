@@ -3,10 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import BibleModule from './bible.module';
 
 @Module({
-    imports: [
-        MongooseModule.forRoot('mongodb://192.168.10.10/bible'),
-        BibleModule
-    ],
+    imports: [MongooseModule.forRoot('mongodb://127.0.0.1/bible'), BibleModule],
     controllers: [],
     providers: []
 })
