@@ -1,6 +1,6 @@
 import { Verse } from './../models/verse';
 import { InjectModel } from '@nestjs/mongoose';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Model } from 'mongoose';
 
 @Injectable()
@@ -75,6 +75,20 @@ export default class VerseService {
                     resolve(res.map(v => this.transformVerse(v)));
                 })
                 .catch(e => resolve(null));
+        });
+    }
+
+    getVersesForTranslation(translation: string) {
+
+        Logger.log('INSIDE Verse service for translation ' + translation.toLocaleLowerCase())
+        return new Promise((resolve, reject) => {
+            this.verseModel
+                .find({ translation })
+                .exec()
+                .then(res => {
+                    resolve(res.map(v => this.transformVerse(v)));
+                })
+                .catch(e => resolve([]));
         });
     }
 

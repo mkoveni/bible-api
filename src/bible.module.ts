@@ -1,7 +1,7 @@
 import { VerseSchema } from './models/verse';
 import { TranslationController } from './controllers/translation.controller';
 import TranslationService from 'src/services/translation.service';
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TranslationSchema } from './models/translation';
 import BookController from './controllers/book.controller';
@@ -9,6 +9,7 @@ import VerseService from './services/verse.service';
 
 @Module({
     imports: [
+        CacheModule.register(),
         MongooseModule.forFeature([
             {
                 name: 'Translation',
